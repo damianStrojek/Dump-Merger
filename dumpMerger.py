@@ -26,8 +26,6 @@ def process_all():
     process_blogplay_users_dump(True)
     print("\033[36mProcessing cdprojectred.txt ...\033[0m")
     process_cdprojectred(True)
-    #process_combo_2023(True)
-    #process_combo_2024(True)
     print("\033[36mProcessing daniel_hosting.txt ...\033[0m")
     process_daniel_hosting(True)
     print("\033[36mProcessing Electroworld.txt ...\033[0m")
@@ -52,9 +50,28 @@ def process_all():
     process_tiktok(True)
     print("\033[36mProcessing westernunion_com.txt ...\033[0m")
     process_westernunion_com(True)
+    print("\033[36mProcessing BitcoinTalk-org.txt ...\033[0m")
+    process_bitcointalk(True)
+    print("\033[36mProcessing vbuser_forumplay.txt ...\033[0m")
+    process_forumplay(True)
+    print("\033[36mProcessing kssipgovpl.txt ...\033[0m")
+    process_kssipgovpl(True)
+    print("\033[36mProcessing morele-users.txt ...\033[0m")
+    process_morele(True)
+    print("\033[36mProcessing DB_Noclegi.txt ...\033[0m")
+    process_noclegipl(True)
+    print("\033[36mProcessing sellaccs247.txt ...\033[0m")
+    process_sellaccs247com(True)
+    # Around ~6 minutes to finish
     print("\033[36mProcessing all files in Dehashed Database directory ...\033[0m")
     process_dehashed_database(True)
-    #process_canva_full_cleaned(True)
+    # Around ~27 minutes to finish
+    process_combo_2023(True)
+    # Around ~17-19 minutes to finish
+    process_combo_2024(True)
+    # Around ~6 minutes to finish
+    process_canva_full_cleaned(True)
+
 
 def process_all_individual():
     print("\033[36mProcessing 1.5M POLAND GOOD QUALITY COMBOLIST.txt ...\033[0m")
@@ -69,8 +86,6 @@ def process_all_individual():
     process_blogplay_users_dump()
     print("\033[36mProcessing cdprojectred.txt ...\033[0m")
     process_cdprojectred()
-    #process_combo_2023(True)
-    #process_combo_2024(True)
     print("\033[36mProcessing daniel_hosting.txt ...\033[0m")
     process_daniel_hosting()
     print("\033[36mProcessing Electroworld.txt ...\033[0m")
@@ -95,9 +110,27 @@ def process_all_individual():
     process_tiktok()
     print("\033[36mProcessing westernunion_com.txt ...\033[0m")
     process_westernunion_com()
-    print("\033[36mProcessing all files in Dehashed Database directory ...\033[0m")
-    process_dehashed_database()
-    #process_canva_full_cleaned(True)
+    print("\033[36mProcessing BitcoinTalk-org.txt ...\033[0m")
+    process_bitcointalk()
+    print("\033[36mProcessing vbuser_forumplay.txt ...\033[0m")
+    process_forumplay()
+    print("\033[36mProcessing kssipgovpl.txt ...\033[0m")
+    process_kssipgovpl()
+    print("\033[36mProcessing morele-users.txt ...\033[0m")
+    process_morele()
+    print("\033[36mProcessing DB_Noclegi.txt ...\033[0m")
+    process_noclegipl()
+    print("\033[36mProcessing sellaccs247.txt ...\033[0m")
+    process_sellaccs247com()
+    # Around ~6 minutes to finish
+    #print("\033[36mProcessing all files in Dehashed Database directory ...\033[0m")
+    #process_dehashed_database()
+    # Around ~27 minutes to finish
+    #process_combo_2023()
+    # Around ~13.5 minutes to finish
+    #process_combo_2024()
+    # Around ~4.5 minutes to finish
+    #process_canva_full_cleaned()
 
 # 1.5M POLAND GOOD QUALITY COMBOLIST.txt
 def process_1_5_m_poland_combolist(mergeAll=False):
@@ -118,6 +151,8 @@ def process_1_5_m_poland_combolist(mergeAll=False):
         line = line.strip()
 
         if ":" in line:
+            if "\\" in line:
+                line = line.replace("\\", "")
             id, password = line.split(":", 1)
 
             if not id and not password:
@@ -152,13 +187,15 @@ def process_1500000_data_random_websites(mergeAll=False):
 
     for line in inputFile:
         line = line.strip()
+        if "\\" in line:
+            line = line.replace("\\", "")
         parts = line.split(":")
 
         if len(parts) >= 3:
             id = parts[-2].strip()
             password = parts[-1].strip()
 
-            if not id and not password:
+            if not is_valid_utf8mb4(password) or (not id and not password):
                 continue
 
             # Source, Date, username, email, password, hash
@@ -192,6 +229,8 @@ def process_3_5mlnPLmailpass(mergeAll=False):
         line = line.strip()
 
         if ":" in line:
+            if "\\" in line:
+                line = line.replace("\\", "")
             id, password = line.split(":", 1)
             
             # Situation where there are dates in the email fields
@@ -229,6 +268,8 @@ def process_agusiq_torrents_dump(mergeAll=False):
     start = time.time()
 
     for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
         line = line.strip()
 
         # Extract values inside parentheses
@@ -305,16 +346,25 @@ def process_cdprojectred(mergeAll=False):
     start = time.time()
 
     for line in inputFile:
+        # Remove back slashes
+        if "\\" in line:
+            line = line.replace("\\", "")
+        # Change quotation in hashes to spaces
+        if "\"" in line:
+            line = line.replace("\"", " ")
+        # Change commas in hashes to double dots
+        if "," in line:
+            line = line.replace(",", "..")
         line = line.strip()
 
         if ":" in line:
-            email, password, salt = line.split(":")
+            email, passwordHash, salt = line.split(":")
 
-            if not email or not password or not salt:
+            if not email and not passwordHash and not salt:
                 continue
 
             # Source, Date, username, email, password, hash
-            writer.writerow(["cdprojectred.txt", "Leak from data breach in year 2021", "NULL", email, "NULL", password+":"+salt])
+            writer.writerow(["cdprojectred.txt", "Leak from data breach in year 2021", "NULL", email, "NULL", passwordHash+":"+salt])
 
     end = time.time()
     print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
@@ -332,7 +382,7 @@ def process_combo_2023(mergeAll=False):
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -344,7 +394,27 @@ def process_combo_2023(mergeAll=False):
         if not i % 200000000:
             print("\033[36mProcessing line " + str(i) + " of combo_rez_2023.txt ...\033[0m")
 
+        if i == 150000000 and not mergeAll:
+            outputFile.close()
+            outputFileTwo = open(inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileTwo)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+
+        if i == 300000000 and not mergeAll:
+            outputFileTwo.close()
+            outputFileThree = open(inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileThree)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+
+        if i == 450000000 and not mergeAll:
+            outputFileThree.close()
+            outputFileFour = open(inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileFour)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+
         if ":" in line:
+            if "\\" in line:
+                line = line.replace("\\", "")
             credentials = line.split(":")
 
             if len(credentials) >= 2:
@@ -368,7 +438,7 @@ def process_combo_2023(mergeAll=False):
     print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
 
     inputFile.close()
-    outputFile.close()
+    outputFileFour.close()
 
 # combo_rez_2024.txt
 # Date from 01-12-2023 to 02-02-2024
@@ -380,17 +450,43 @@ def process_combo_2024(mergeAll=False):
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
     start = time.time()
 
     for i, line in enumerate(inputFile):
+        if "\\" in line:
+            line = line.replace("\\", "")
         line = line.strip()
 
         if not i % 150000000:
             print("\033[36mProcessing line " + str(i) + " of combo_rez_2024.txt ...\033[0m")
+
+        if i == 150000000 and not mergeAll:
+            outputFile.close()
+            outputFileTwo = open(inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileTwo)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+
+        if i == 300000000 and not mergeAll:
+            outputFileTwo.close()
+            outputFileThree = open(inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileThree)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+
+        if i == 450000000 and not mergeAll:
+            outputFileThree.close()
+            outputFileFour = open(inputFilename + "-4.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileFour)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+
+        if i == 600000000 and not mergeAll:
+            outputFileFour.close()
+            outputFileFive = open(inputFilename + "-5.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileFour)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         if ":" in line:
             credentials = line.split(":")
@@ -416,7 +512,7 @@ def process_combo_2024(mergeAll=False):
     print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
 
     inputFile.close()
-    outputFile.close()
+    outputFileFive.close()
 
 # daniel_hosting.txt
 def process_daniel_hosting(mergeAll=False):
@@ -605,7 +701,7 @@ def process_inpost(mergeAll=False):
 
 # Ledger*.txt
 def process_ledger(mergeAll=False):
-    inputFilename = "Ledger-All-Emails"
+    inputFilename = "Ledger"
     inputFile = open(".\\dumps\\Ledger\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
     
     if mergeAll:
@@ -618,20 +714,6 @@ def process_ledger(mergeAll=False):
     
     start = time.time()
 
-    # Ledger-All-Emails.txt
-    for line in inputFile:
-        email = line.strip()
-
-        if not email:
-            continue
-
-        # Source, Date, username, email, password, hash
-        writer.writerow(["Ledger", "NULL", "NULL", email, "NULL", "NULL"])
-
-    inputFile.close()
-    inputFilename = "Ledger"
-    inputFile = open(".\\dumps\\Ledger\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
-    
     # Ledger.txt
     for line in inputFile:
         line = line.strip()
@@ -644,6 +726,20 @@ def process_ledger(mergeAll=False):
 
             # Source, Date, username, email, password, hash
             writer.writerow(["Ledger", "NULL", "NULL", email, "NULL", "NULL"])
+
+    inputFile.close()
+    inputFilename = "Ledger-All-Emails"
+    inputFile = open(".\\dumps\\Ledger\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    # Ledger-All-Emails.txt
+    for line in inputFile:
+        email = line.strip()
+
+        if not email:
+            continue
+
+        # Source, Date, username, email, password, hash
+        writer.writerow(["Ledger All Emails", "NULL", "NULL", email, "NULL", "NULL"])
 
     inputFile.close()
     inputFilename = "Ledger-Order-Buyers"
@@ -660,7 +756,7 @@ def process_ledger(mergeAll=False):
                 continue
 
             # Source, Date, username, email, password, hash
-            writer.writerow(["Ledger", "NULL", "NULL", email, "NULL", "NULL"])
+            writer.writerow(["Ledger Order Buyers", "NULL", "NULL", email, "NULL", "NULL"])
 
     end = time.time()
     print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
@@ -685,6 +781,8 @@ def process_pl2023_dump(mergeAll=False):
 
     for line in inputFile:
         line = line.strip()
+        if "\\" in line:
+            line = line.replace("\\", "")
 
         # If there is not at least two colons, skip. Colons are at the beginning and between id and password
         # Situations with multiple websites, no credentials inside
@@ -695,6 +793,9 @@ def process_pl2023_dump(mergeAll=False):
             source, credentialsLine = line.split(" ")
             credentials = credentialsLine.split(":")
 
+            if len(source) > 254:
+                source = source[:250]
+
             if credentials == ":":
                 continue
             
@@ -702,7 +803,10 @@ def process_pl2023_dump(mergeAll=False):
                 id = credentials[-2]
                 password = credentials[-1]
 
-                if not source or not id or not password:
+                if not id and not password:
+                    continue
+
+                if len(id) > 100 or len(password) > 100:
                     continue
 
                 # Source, Date, username, email, password, hash
@@ -710,7 +814,6 @@ def process_pl2023_dump(mergeAll=False):
                     writer.writerow([source, "2023", "NULL", id, password, "NULL"])
                 else:
                     writer.writerow([source, "2023", id, "NULL", password, "NULL"])
-
         # Only colons in between source and credentials
         else:
             parts = line.split(":")
@@ -718,8 +821,14 @@ def process_pl2023_dump(mergeAll=False):
                 id = parts[-2]
                 password = parts[-1]
                 source = parts[0] + ":" + parts[1]
-                
+
                 if not id and not password:
+                    continue
+
+                if len(source) > 254:
+                    source = source[:250]
+
+                if len(id) > 100 or len(password) > 100:
                     continue
 
                 # Source, Date, username, email, password, hash
@@ -736,14 +845,11 @@ def process_pl2023_dump(mergeAll=False):
 
 # forum-torepublic*.txt
 def process_torepublic(mergeAll=False):
-    inputFilename = "forum-torepublic"
-    inputFile = open(".\\dumps\\forum-torepublic\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
-
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open("forum-torepublic.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -751,16 +857,16 @@ def process_torepublic(mergeAll=False):
 
     # forum-torepublic.txt
     # 4 records
-    for line in inputFile:
-        line = line.strip()
+    # Source, Date, username, email, password, hash
+    writer.writerow(["Forum torepublic dump", "Dump generated on 2015-12-19",
+                    "Jihad", "foxer@safe-mail.net", "NULL", "8da2b976d4a3b9cad1a28c1b6a95407e57bd780f:=BxZK9AvtT~u"])
+    writer.writerow(["Forum torepublic dump", "Dump generated on 2015-12-19",
+                    "test02", "test02@wp.pl", "NULL", 'f2ade1f7d98c770d89fec5e3b1740e0bb383bcb4:NULL'])
+    writer.writerow(["Forum torepublic dump", "Dump generated on 2015-12-19",
+                    "kapitano", "kapitano@sigaint.org", "NULL", "23ef93706336655e2a134fd89824339e6d3c1e11:kNkO:e9X#Rtg"])
+    writer.writerow(["Forum torepublic dump", "Dump generated on 2015-12-19",
+                    "Elekolo", "elekolo@hushmail.com", "NULL", "838b09ee16dd2d62ddd01019bc311b1c498eb69c:l<$2;}Sb!%\\sO"])
 
-        if "'" in line:
-            email, username, passwordHash, salt = line.split("'")
-
-            # Source, Date, username, email, password, hash
-            writer.writerow(["Forum torepublic dump", "Dump generated on 2015-12-19", username, email, "NULL", passwordHash+":"+salt])
-
-    inputFile.close()
     inputFilename = "forum-torepublic-post-1"
     inputFile = open(".\\dumps\\forum-torepublic\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
@@ -777,6 +883,9 @@ def process_torepublic(mergeAll=False):
             password = parts[1]
 
             if not email and not password:
+                continue
+
+            if len(email) > 254 or len(password) > 254:
                 continue
 
             # Source, Date, username, email, password, hash
@@ -814,6 +923,9 @@ def process_torepublic(mergeAll=False):
             if not email and not passwordHash:
                 continue
 
+            if len(email) > 254 or len(passwordHash) > 254:
+                continue
+
             # Source, Date, username, email, password, hash
             writer.writerow(["Forum torepublic dump post 3", "Dump generated on 2015-12-19", "NULL", email, "NULL", passwordHash])
 
@@ -833,6 +945,9 @@ def process_torepublic(mergeAll=False):
             password = parts[1]
 
             if not passwordHash and not password:
+                continue
+
+            if len(passwordHash) > 254 or len(password) > 254:
                 continue
 
             # Source, Date, username, email, password, hash
@@ -856,6 +971,9 @@ def process_torepublic(mergeAll=False):
             if not email and not password:
                 continue
 
+            if len(email) > 254 or len(password) > 254:
+                continue
+
             # Source, Date, username, email, password, hash
             writer.writerow(["Forum torepublic dump post 5", "Dump generated on 2015-12-19", "NULL", email, password, "NULL"])
 
@@ -877,6 +995,9 @@ def process_torepublic(mergeAll=False):
             if not email and not passwordHash:
                 continue
 
+            if len(email) > 254 or len(passwordHash) > 254:
+                continue
+
             # Source, Date, username, email, password, hash
             writer.writerow(["Forum torepublic dump post 6", "Dump generated on 2015-12-19", "NULL", email, "NULL", passwordHash])
 
@@ -896,6 +1017,9 @@ def process_torepublic(mergeAll=False):
             passwordHash = parts[5]
 
             if not email and not passwordHash:
+                continue
+
+            if len(email) > 254 or len(passwordHash) > 254:
                 continue
 
             # Source, Date, username, email, password, hash
@@ -924,6 +1048,9 @@ def process_torepublic(mergeAll=False):
             if not email and not passwordHash and not password:
                 continue
 
+            if len(email) > 254 or len(passwordHash) > 254 or len(password) > 254:
+                continue
+
             # Source, Date, username, email, password, hash
             writer.writerow(["Forum torepublic dump post 8", "Dump generated on 2015-12-19", "NULL", email, password, passwordHash])
         # Some lines have less information, only email and hash
@@ -932,6 +1059,9 @@ def process_torepublic(mergeAll=False):
             passwordHash = parts[1]
 
             if not email and not passwordHash:
+                continue
+
+            if len(email) > 254 or len(passwordHash) > 254:
                 continue
 
             # Source, Date, username, email, password, hash
@@ -955,6 +1085,9 @@ def process_torepublic(mergeAll=False):
             if not email and not password:
                 continue
 
+            if len(email) > 254 or len(password) > 254:
+                continue
+
             # Source, Date, username, email, password, hash
             writer.writerow(["Forum torepublic dump post 9", "Dump generated on 2015-12-19", "NULL", email, password, "NULL"])
 
@@ -968,6 +1101,10 @@ def process_torepublic(mergeAll=False):
     pairs = line.split("<blank>")
 
     for pair in pairs:
+        if "\\" in pair:
+            pair = pair.replace("\\", "")
+        if "\"" in pair:
+            pair = pair.replace("\"", "")
         parts = pair.split(",")
 
         if len(parts) >= 6:
@@ -975,6 +1112,9 @@ def process_torepublic(mergeAll=False):
             email = parts[5]
 
             if not email and not password:
+                continue
+
+            if len(email) > 254 or len(password) > 254:
                 continue
 
             # Source, Date, username, email, password, hash
@@ -990,6 +1130,10 @@ def process_torepublic(mergeAll=False):
     pairs = line.split("\\n")
 
     for pair in pairs:
+        if "\\" in pair:
+            pair = pair.replace("\\", "")
+        if "\"" in pair:
+            pair = pair.replace("\"", "")
         parts = pair.split(",")
 
         if len(parts) >= 3:
@@ -998,6 +1142,9 @@ def process_torepublic(mergeAll=False):
             passwordHash = parts[2]
 
             if not email and not password and not passwordHash:
+                continue
+
+            if len(email) > 254 or len(password) > 254 or len(passwordHash) > 254:
                 continue
 
             # Source, Date, username, email, password, hash
@@ -1027,6 +1174,10 @@ def process_wakacjepl_forum(mergeAll=False):
     start = time.time()
 
     for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
+        if "\"" in line:
+            line = line.replace("\"", "")
         line = line.strip()
         linePart = line.split("VALUES")[-1]  # Get only the part after "VALUES ("
         lineUsers = linePart.split("(") 
@@ -1102,11 +1253,13 @@ def process_badoo(mergeAll=False):
 
     for line in inputFile:
         line = line.strip()
+        if "\\" in line:
+            line = line.replace("\\", "")
 
         if ":" in line:
             id, password = line.split(":", 1)
 
-            if not id and not password:
+            if len(id) > 100 or len(password) > 100 or (not id and not password):
                 continue
 
             # Source, Date, username, email, password, hash
@@ -1137,6 +1290,8 @@ def process_sample_txt(mergeAll = False):
     start = time.time()
 
     for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
         line = line.strip()
 
         if ":" in line:
@@ -1151,6 +1306,9 @@ def process_sample_txt(mergeAll = False):
             # Additional filtering because there is too much data
             if len(id) <= 3 or len(id) <= 3 or len(id) > 75 or len(password) > 75:
                 continue
+
+            if len(source) > 254:
+                source = source[:250]
 
             # Source, Date, username, email, password, hash
             if "@" in id:
@@ -1181,6 +1339,8 @@ def process_tiktok(mergeAll = False):
     start = time.time()
 
     for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
         line = line.strip()
 
         if ":" in line:
@@ -1247,19 +1407,27 @@ def process_dehashed_database(mergeAll = False):
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open("DehashedDatabase.csv", "w", newline="", encoding="utf-8")
+        outputFile = open("DehashedDatabase-1.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
     start = time.time()
 
-    for title in inputFiles:
+    for i, title in enumerate(inputFiles):
         inputFilename = os.path.splitext(os.path.basename(title))[0]
         inputFile = open(".\\dumps\\nowe-olha\\DehashedDatabase\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+        if i == 137 and not mergeAll:
+            outputFile.close()
+            outputFileTwo = open("DehashedDatabase-2.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileTwo)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         print("\033[36mProcessing " + str(inputFilename) + " from DehashedDatabase ...\033[0m")
 
         for line in inputFile:
+            if "\\" in line:
+                line = line.replace("\\", "")
             line = line.strip()
 
             if ":" in line:
@@ -1268,6 +1436,9 @@ def process_dehashed_database(mergeAll = False):
                 password = parts[1]
 
                 if not id and not password:
+                    continue
+
+                if len(id) <= 3 or len(id) <= 3 or len(id) > 75 or len(password) > 75:
                     continue
 
                 # Source, Date, username, email, password, hash
@@ -1281,12 +1452,62 @@ def process_dehashed_database(mergeAll = False):
     end = time.time()
     print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
 
-    outputFile.close()
+    outputFileTwo.close()
 
 # CANVA_FULL_CLEANED.txt
 def process_canva_full_cleaned(mergeAll = False):
     inputFilename = "CANVA_FULL_CLEANED"
     inputFile = open(".\\dumps\\nowe-olha\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    if mergeAll:
+        outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+    else:
+        outputFile = open(inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+        writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+    
+    start = time.time()
+
+    for i, line in enumerate(inputFile):
+        if "\\" in line:
+            line = line.replace("\\", "")
+        line = line.strip()
+        parts = line.split(",")
+
+        if not i % 30000000:
+            print("\033[36mProcessing line " + str(i) + " of CANVA_FULL_CLEANED.txt ...\033[0m")
+
+        if i == 60000000 and not mergeAll:
+            outputFile.close()
+            outputFileTwo = open(inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
+            writer = csv.writer(outputFileTwo)
+            writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+
+        if len(parts) >= 22:
+            email = parts[3]
+            username = parts[6]
+            passwordHash = parts[21]
+
+            if not email and not username and not passwordHash:
+                continue
+
+            if len(email) > 75 or len(username) > 75 or len(passwordHash) > 200:
+                continue
+
+            # Source, Date, username, email, password, hash
+            writer.writerow(["CANVA_FULL_CLEANED.txt", "NULL", username, email, "NULL", passwordHash])
+
+    end = time.time()
+    print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
+
+    inputFile.close()
+    outputFileTwo.close()
+
+# BitcoinTalk-org.txt
+def process_bitcointalk(mergeAll = False):
+    inputFilename = "BitcoinTalk-org"
+    inputFile = open(".\\dumps\\nowe-olha-2\\bitcointalkorg\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1298,23 +1519,239 @@ def process_canva_full_cleaned(mergeAll = False):
     
     start = time.time()
 
-    for i, line in enumerate(inputFile):
+    for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
         line = line.strip()
-        parts = line.split(",")
 
-        if not i % 150000000:
-            print("\033[36mProcessing line " + str(i) + " of CANVA_FULL_CLEANED.txt ...\033[0m")
+        if ":" in line:
+            parts = line.split(":")
+            id = parts[0]
+            password = parts[1]
 
-        if len(parts) >= 22:
-            email = parts[3]
-            username = parts[6]
-            passwordHash = parts[21]
-
-            if not email and not username and not passwordHash:
+            if not id and not password:
                 continue
 
             # Source, Date, username, email, password, hash
-            writer.writerow(["CANVA_FULL_CLEANED.txt", "NULL", username, email, "NULL", passwordHash])
+            if "@" in id:
+                writer.writerow(["Bitcoin Talk Org Leak", "NULL", "NULL", id, password, "NULL"])
+            else:
+                writer.writerow(["Bitcoin Talk Org Leak", "NULL", id, "NULL", password, "NULL"])
+
+    end = time.time()
+    print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
+
+    inputFile.close()
+    outputFile.close()
+
+# vbuser_forumplay.txt
+def process_forumplay(mergeAll = False):
+    inputFilename = "vbuser_forumplay"
+    inputFile = open(".\\dumps\\nowe-olha-2\\forumplaypl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    if mergeAll:
+        outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+    else:
+        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+        writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+    
+    start = time.time()
+
+    for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
+        line = line.strip()
+
+        if "," in line:
+            parts = line.split(",")
+
+            if len(parts) >= 77:
+                username = parts[4].strip(" '")
+                email = parts[6].strip(" '")
+                ipAddress = parts[42].strip(" '")
+                token = parts[74]
+                if 'legacy' in parts[76]: secret = parts[77]
+                else: secret = parts[76]
+
+                if not username and not email:
+                    continue
+
+                # Source, Date, username, email, password, hash
+                writer.writerow(["Forum Play Dump", "Dump generated Aug 11 2020", username + " : " + ipAddress, email, token, secret])
+
+    end = time.time()
+    print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
+
+    inputFile.close()
+    outputFile.close()
+
+# kssipgovpl.txt
+def process_kssipgovpl(mergeAll = False):
+    inputFilename = "kssipgovpl"
+    inputFile = open(".\\dumps\\nowe-olha-2\\kssip.gov.pl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    if mergeAll:
+        outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+    else:
+        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+        writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+    
+    start = time.time()
+
+    for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
+        line = line.strip()
+
+        if "," in line:
+            parts = line.split(",")
+
+            if len(parts) >= 35:
+                username = parts[7]
+                password = parts[8]
+                email = parts[12]
+                ipAddress = parts[33]
+                secret = parts[34]
+
+                if not username and not email:
+                    continue
+
+                # Source, Date, username, email, password, hash
+                writer.writerow(["kssip.gov.pl leak", "NULL", username + " : " + ipAddress, email, password, secret])
+
+    end = time.time()
+    print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
+
+    inputFile.close()
+    outputFile.close()
+
+# morele-users.txt
+def process_morele(mergeAll = False):
+    inputFilename = "morele-users"
+    inputFile = open(".\\dumps\\nowe-olha-2\\morele\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    if mergeAll:
+        outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+    else:
+        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+        writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+    
+    start = time.time()
+
+    for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
+        line = line.strip()
+
+        # Extract values inside parentheses
+        if "INSERT INTO `user` VALUES (" in line:
+            values_part = line.split("VALUES (")[-1]  # Get only the part after "VALUES ("
+            values = values_part.split(",(")  # Split by records 
+            
+            for value in values:
+                value = value.split(",")
+
+                if len(value) >= 5:
+                    firstName = value[1].strip("'")
+                    lastName = value[2].strip("'")
+                    email = value[3].strip("'")
+                    passwordHash = value[4].strip("'")
+
+                    if not email and not passwordHash:
+                        continue
+
+                    # Source, Date, username, email, password, hash
+                    writer.writerow(["Morele Users leak", "Dump completed 2018-10-10 1:47:26", firstName+" "+lastName, email, "NULL", passwordHash])
+
+    end = time.time()
+    print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
+
+    inputFile.close()
+    outputFile.close()
+
+# DB_Noclegi.txt
+def process_noclegipl(mergeAll = False):
+    inputFilename = "DB_Noclegi"
+    inputFile = open(".\\dumps\\nowe-olha-2\\noclegipl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    if mergeAll:
+        outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+    else:
+        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+        writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+    
+    start = time.time()
+
+    for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
+        line = line.strip()
+
+        if ":" in line:
+            parts = line.split(":")
+            id = parts[0]
+            password = parts[1]
+
+            if not id and not password:
+                continue
+
+            # Source, Date, username, email, password, hash
+            if "@" in id:
+                writer.writerow(["Noclegi.pl database leak", "NULL", "NULL", id, password, "NULL"])
+            else:
+                writer.writerow(["Noclegi.pl database leak", "NULL", id, "NULL", password, "NULL"])
+
+    end = time.time()
+    print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
+
+    inputFile.close()
+    outputFile.close()
+
+# sellaccs247.txt
+def process_sellaccs247com(mergeAll = False):
+    inputFilename = "sellaccs247"
+    inputFile = open(".\\dumps\\nowe-olha-2\\sellaccs247.com\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    if mergeAll:
+        outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+    else:
+        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+        writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+    
+    start = time.time()
+
+    for line in inputFile:
+        if "\\" in line:
+            line = line.replace("\\", "")
+        line = line.strip()
+
+        if ":" in line:
+            parts = line.split(":")
+
+            if len(parts) >= 18:
+                firstName = parts[0]
+                lastName = parts[2]
+                password = parts[7]
+                for i in range(12, 18):
+                    if '@' in parts[i]:
+                        email = parts[i]
+                        break
+
+                if not email and not password:
+                    continue
+
+                # Source, Date, username, email, password, hash
+                writer.writerow(["sellaccs247.com database leak", "NULL", firstName + " " + lastName, email, password, "NULL"])
 
     end = time.time()
     print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
@@ -1335,6 +1772,14 @@ def checkDate(line):
                         return True
                     else:
                         return False
+                    
+def is_valid_utf8mb4(text):
+    try:
+        # Ensures valid UTF-8
+        text.encode('utf-8').decode('utf-8')
+        return True
+    except UnicodeDecodeError:
+        return False
 
 def main():
     options = {
@@ -1363,7 +1808,13 @@ def main():
         "19": process_tiktok,
         "20": process_westernunion_com,
         "21": process_dehashed_database,
-        "22": process_canva_full_cleaned
+        "22": process_canva_full_cleaned,
+        "23": process_bitcointalk,
+        "24": process_forumplay,
+        "25": process_kssipgovpl,
+        "26": process_morele,
+        "27": process_noclegipl,
+        "28": process_sellaccs247com
     }
     
     print("Choose a file to process:\n")
@@ -1391,6 +1842,12 @@ def main():
     print("\033[33;1m20\033[0m: westernunion_com.txt")
     print("\033[33;1m21\033[0m: All files in Dehashed Database directory")
     print("\033[33;1m22\033[0m: CANVA_FULL_CLEANED.txt")
+    print("\033[33;1m23\033[0m: BitcoinTalk-org.txt")
+    print("\033[33;1m24\033[0m: vbuser_forumplay.txt")
+    print("\033[33;1m25\033[0m: kssipgovpl.txt")
+    print("\033[33;1m26\033[0m: morele-users.txt")
+    print("\033[33;1m27\033[0m: DB_Noclegi.txt")
+    print("\033[33;1m28\033[0m: sellaccs247.txt")
     
     choice = input("\n\033[33;1mEnter your choice: \033[0m")
     
