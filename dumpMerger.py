@@ -136,10 +136,10 @@ def process_all_individual():
     process_dehashed_database()
     # Around ~27 minutes to generate
     # Around ~ minutes to load into MySQL (?)
-    process_combo_2023()
+    #process_combo_2023()
     # Around ~23 minutes to generate
     # Around ~160 minutes to load into MySQL (?)
-    process_combo_2024()
+    #process_combo_2024()
     # Around ~6 minutes to generate
     # Around ~21 minutes to load into MySQL
     process_canva_full_cleaned()
@@ -156,7 +156,7 @@ def process_1_5_m_poland_combolist(mergeAll=""):
     if mergeAll:
         outputFile = open(mergeAll, "w", newline="", encoding="utf-8")
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
 
     writer = csv.writer(outputFile)
     writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
@@ -195,7 +195,7 @@ def process_1500000_data_random_websites(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -235,7 +235,7 @@ def process_3_5mlnPLmailpass(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -278,7 +278,7 @@ def process_agusiq_torrents_dump(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -319,7 +319,7 @@ def process_blogplay_users_dump(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -358,7 +358,7 @@ def process_cdprojectred(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -401,7 +401,7 @@ def process_combo_2023(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -415,19 +415,19 @@ def process_combo_2023(mergeAll=""):
 
         if i == 150000000 and not mergeAll:
             outputFile.close()
-            outputFileTwo = open(inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
+            outputFileTwo = open(".\\output\\" + inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileTwo)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         if i == 300000000 and not mergeAll:
             outputFileTwo.close()
-            outputFileThree = open(inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
+            outputFileThree = open(".\\output\\" + inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileThree)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         if i == 450000000 and not mergeAll:
             outputFileThree.close()
-            outputFileFour = open(inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
+            outputFileFour = open(".\\output\\" + inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileFour)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
@@ -469,7 +469,7 @@ def process_combo_2024(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -485,25 +485,25 @@ def process_combo_2024(mergeAll=""):
 
         if i == 150000000 and not mergeAll:
             outputFile.close()
-            outputFileTwo = open(inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
+            outputFileTwo = open(".\\output\\" + inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileTwo)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         if i == 300000000 and not mergeAll:
             outputFileTwo.close()
-            outputFileThree = open(inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
+            outputFileThree = open(".\\output\\" + inputFilename + "-3.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileThree)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         if i == 450000000 and not mergeAll:
             outputFileThree.close()
-            outputFileFour = open(inputFilename + "-4.csv", "w", newline="", encoding="utf-8")
+            outputFileFour = open(".\\output\\" + inputFilename + "-4.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileFour)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         if i == 600000000 and not mergeAll:
             outputFileFour.close()
-            outputFileFive = open(inputFilename + "-5.csv", "w", newline="", encoding="utf-8")
+            outputFileFive = open(".\\output\\" + inputFilename + "-5.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileFive)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
@@ -543,7 +543,7 @@ def process_daniel_hosting(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -602,7 +602,7 @@ def process_electroworld(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -637,7 +637,7 @@ def process_inpost(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -727,7 +727,7 @@ def process_ledger(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -793,7 +793,7 @@ def process_pl2023_dump(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -870,7 +870,7 @@ def process_torepublic(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open("forum-torepublic.csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\forum-torepublic.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1188,7 +1188,7 @@ def process_wakacjepl_forum(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1229,7 +1229,7 @@ def process_zapiszjakopl(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1267,7 +1267,7 @@ def process_badoo(mergeAll=""):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
@@ -1305,7 +1305,7 @@ def process_sample_txt(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1354,7 +1354,7 @@ def process_tiktok(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1394,7 +1394,7 @@ def process_westernunion_com(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1429,7 +1429,7 @@ def process_dehashed_database(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open("DehashedDatabase-1.csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\DehashedDatabase-1.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
@@ -1441,7 +1441,7 @@ def process_dehashed_database(mergeAll = False):
 
         if i == 137 and not mergeAll:
             outputFile.close()
-            outputFileTwo = open("DehashedDatabase-2.csv", "w", newline="", encoding="utf-8")
+            outputFileTwo = open(".\\output\\DehashedDatabase-2.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileTwo)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
@@ -1486,7 +1486,7 @@ def process_canva_full_cleaned(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + "-1.csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1503,7 +1503,7 @@ def process_canva_full_cleaned(mergeAll = False):
 
         if i == 60000000 and not mergeAll:
             outputFile.close()
-            outputFileTwo = open(inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
+            outputFileTwo = open(".\\output\\" + inputFilename + "-2.csv", "w", newline="", encoding="utf-8")
             writer = csv.writer(outputFileTwo)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
@@ -1538,7 +1538,7 @@ def process_bitcointalk(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1578,7 +1578,7 @@ def process_forumplay(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1622,7 +1622,7 @@ def process_kssipgovpl(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1665,7 +1665,7 @@ def process_morele(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1711,7 +1711,7 @@ def process_noclegipl(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1751,7 +1751,7 @@ def process_sellaccs247com(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
@@ -1795,7 +1795,7 @@ def process_24_5_mln_emaile_passy(mergeAll = False):
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
     else:
-        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        outputFile = open(".\\output\\" + inputFilename + ".csv", "w", newline="", encoding="utf-8")
         writer = csv.writer(outputFile)
         writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
     
