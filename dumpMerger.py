@@ -864,7 +864,7 @@ def process_pl2023_dump(mergeAll=""):
     outputFile.close()
 
 # forum-torepublic*.txt
-# 
+# https://zaufanatrzeciastrona.pl/post/pelna-baza-danych-i-uzytkownikow-torepublic-w-rekach-wlamywaczy/?utm_source=chatgpt.com
 def process_torepublic(mergeAll=""):
     if mergeAll:
         outputFile = open(mergeAll, "a", newline="", encoding="utf-8")
