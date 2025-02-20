@@ -62,14 +62,20 @@ def process_all():
     process_noclegipl(True)
     print("\033[36mProcessing sellaccs247.txt ...\033[0m")
     process_sellaccs247com(True)
-    # Around ~6 minutes to finish
+    print("\033[36mProcessing 24_5_mln_emaile_i_passy.txt ...\033[0m")
+    process_24_5_mln_emaile_passy(True)
+    # Around ~6 minutes to generate
+    # Around ~73 minutes to load into MySQL
     print("\033[36mProcessing all files in Dehashed Database directory ...\033[0m")
     process_dehashed_database(True)
-    # Around ~27 minutes to finish
+    # Around ~27 minutes to generate
+    # Around ~ minutes to load into MySQL (?)
     process_combo_2023(True)
-    # Around ~17-19 minutes to finish
+    # Around ~23 minutes to generate
+    # Around ~160 minutes to load into MySQL (?)
     process_combo_2024(True)
-    # Around ~6 minutes to finish
+    # Around ~6 minutes to generate
+    # Around ~21 minutes to load into MySQL
     process_canva_full_cleaned(True)
 
 
@@ -122,15 +128,21 @@ def process_all_individual():
     process_noclegipl()
     print("\033[36mProcessing sellaccs247.txt ...\033[0m")
     process_sellaccs247com()
-    # Around ~6 minutes to finish
-    #print("\033[36mProcessing all files in Dehashed Database directory ...\033[0m")
-    #process_dehashed_database()
-    # Around ~27 minutes to finish
-    #process_combo_2023()
-    # Around ~13.5 minutes to finish
-    #process_combo_2024()
-    # Around ~4.5 minutes to finish
-    #process_canva_full_cleaned()
+    print("\033[36mProcessing 24_5_mln_emaile_i_passy.txt ...\033[0m")
+    process_24_5_mln_emaile_passy()
+    # Around ~6 minutes to generate
+    # Around ~73 minutes to load into MySQL
+    print("\033[36mProcessing all files in Dehashed Database directory ...\033[0m")
+    process_dehashed_database()
+    # Around ~27 minutes to generate
+    # Around ~ minutes to load into MySQL (?)
+    process_combo_2023()
+    # Around ~23 minutes to generate
+    # Around ~160 minutes to load into MySQL (?)
+    process_combo_2024()
+    # Around ~6 minutes to generate
+    # Around ~21 minutes to load into MySQL
+    process_canva_full_cleaned()
 
 # 1.5M POLAND GOOD QUALITY COMBOLIST.txt
 def process_1_5_m_poland_combolist(mergeAll=False):
@@ -485,7 +497,7 @@ def process_combo_2024(mergeAll=False):
         if i == 600000000 and not mergeAll:
             outputFileFour.close()
             outputFileFive = open(inputFilename + "-5.csv", "w", newline="", encoding="utf-8")
-            writer = csv.writer(outputFileFour)
+            writer = csv.writer(outputFileFive)
             writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
 
         if ":" in line:
@@ -1239,7 +1251,7 @@ def process_zapiszjakopl(mergeAll=False):
 # https://monitor.mozilla.org/breach-details/Badoo
 def process_badoo(mergeAll=False):
     inputFilename = "Badoo"
-    inputFile = open(".\\dumps\\nowe-olha\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-1\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1277,7 +1289,7 @@ def process_badoo(mergeAll=False):
 # sample.txt
 def process_sample_txt(mergeAll = False):
     inputFilename = "sample"
-    inputFile = open(".\\dumps\\nowe-olha\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-1\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1326,7 +1338,7 @@ def process_sample_txt(mergeAll = False):
 # https://www.twingate.com/blog/tips/TikTok-data-breach
 def process_tiktok(mergeAll = False):
     inputFilename = "tiktok_com_logpass"
-    inputFile = open(".\\dumps\\nowe-olha\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-1\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1366,7 +1378,7 @@ def process_tiktok(mergeAll = False):
 # westernunion_com.txt
 def process_westernunion_com(mergeAll = False):
     inputFilename = "westernunion_com"
-    inputFile = open(".\\dumps\\nowe-olha\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-1\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1399,9 +1411,9 @@ def process_westernunion_com(mergeAll = False):
     inputFile.close()
     outputFile.close()
 
-# \nowe-olha\DehashedDatabase\*.txt
+# \\new-batch-1\\DehashedDatabase\\*.txt
 def process_dehashed_database(mergeAll = False):
-    inputFiles = glob.glob(os.path.join(".\\dumps\\nowe-olha\\DehashedDatabase\\", "*.txt"))
+    inputFiles = glob.glob(os.path.join(".\\dumps\\new-batch-1\\DehashedDatabase\\", "*.txt"))
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1415,7 +1427,7 @@ def process_dehashed_database(mergeAll = False):
 
     for i, title in enumerate(inputFiles):
         inputFilename = os.path.splitext(os.path.basename(title))[0]
-        inputFile = open(".\\dumps\\nowe-olha\\DehashedDatabase\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+        inputFile = open(".\\dumps\\new-batch-1\\DehashedDatabase\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
         if i == 137 and not mergeAll:
             outputFile.close()
@@ -1457,7 +1469,7 @@ def process_dehashed_database(mergeAll = False):
 # CANVA_FULL_CLEANED.txt
 def process_canva_full_cleaned(mergeAll = False):
     inputFilename = "CANVA_FULL_CLEANED"
-    inputFile = open(".\\dumps\\nowe-olha\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-1\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1507,7 +1519,7 @@ def process_canva_full_cleaned(mergeAll = False):
 # BitcoinTalk-org.txt
 def process_bitcointalk(mergeAll = False):
     inputFilename = "BitcoinTalk-org"
-    inputFile = open(".\\dumps\\nowe-olha-2\\bitcointalkorg\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-2\\bitcointalkorg\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1547,7 +1559,7 @@ def process_bitcointalk(mergeAll = False):
 # vbuser_forumplay.txt
 def process_forumplay(mergeAll = False):
     inputFilename = "vbuser_forumplay"
-    inputFile = open(".\\dumps\\nowe-olha-2\\forumplaypl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-2\\forumplaypl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1590,7 +1602,7 @@ def process_forumplay(mergeAll = False):
 # kssipgovpl.txt
 def process_kssipgovpl(mergeAll = False):
     inputFilename = "kssipgovpl"
-    inputFile = open(".\\dumps\\nowe-olha-2\\kssip.gov.pl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-2\\kssip.gov.pl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1632,7 +1644,7 @@ def process_kssipgovpl(mergeAll = False):
 # morele-users.txt
 def process_morele(mergeAll = False):
     inputFilename = "morele-users"
-    inputFile = open(".\\dumps\\nowe-olha-2\\morele\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-2\\morele\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1678,7 +1690,7 @@ def process_morele(mergeAll = False):
 # DB_Noclegi.txt
 def process_noclegipl(mergeAll = False):
     inputFilename = "DB_Noclegi"
-    inputFile = open(".\\dumps\\nowe-olha-2\\noclegipl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-2\\noclegipl\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1718,7 +1730,7 @@ def process_noclegipl(mergeAll = False):
 # sellaccs247.txt
 def process_sellaccs247com(mergeAll = False):
     inputFilename = "sellaccs247"
-    inputFile = open(".\\dumps\\nowe-olha-2\\sellaccs247.com\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+    inputFile = open(".\\dumps\\new-batch-2\\sellaccs247.com\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
 
     if mergeAll:
         outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
@@ -1752,6 +1764,41 @@ def process_sellaccs247com(mergeAll = False):
 
                 # Source, Date, username, email, password, hash
                 writer.writerow(["sellaccs247.com database leak", "NULL", firstName + " " + lastName, email, password, "NULL"])
+
+    end = time.time()
+    print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
+
+    inputFile.close()
+    outputFile.close()
+
+# 24_5_mln_emaile_i_passy.txt
+def process_24_5_mln_emaile_passy(mergeAll = False):
+    inputFilename = "24_5_mln_emaile_i_passy"
+    inputFile = open(".\\dumps\\" + inputFilename + ".txt", "r", encoding="utf-8", errors="ignore")
+
+    if mergeAll:
+        outputFile = open("merge.csv", "a", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+    else:
+        outputFile = open(inputFilename + ".csv", "w", newline="", encoding="utf-8")
+        writer = csv.writer(outputFile)
+        writer.writerow(["Source", "Date", "Username", "Email", "Password", "Hash"])
+    
+    start = time.time()
+
+    for line in inputFile:
+        line = line.strip()
+
+        if ":" in line:
+            if "\\" in line:
+                line = line.replace("\\", "")
+            email, password = line.split(":", 1)
+
+            if not email and not password:
+                continue
+
+            # Source, Date, username, email, password, hash
+            writer.writerow(["24_5_mln_emaile_i_passy leak 2025", "NULL", "NULL", email, password, "NULL"])
 
     end = time.time()
     print(f"\033[32mSuccess, completed in {round(end - start, 4)} sec.\033[0m")
@@ -1814,7 +1861,8 @@ def main():
         "25": process_kssipgovpl,
         "26": process_morele,
         "27": process_noclegipl,
-        "28": process_sellaccs247com
+        "28": process_sellaccs247com,
+        "29": process_24_5_mln_emaile_passy
     }
     
     print("Choose a file to process:\n")
@@ -1848,6 +1896,7 @@ def main():
     print("\033[33;1m26\033[0m: morele-users.txt")
     print("\033[33;1m27\033[0m: DB_Noclegi.txt")
     print("\033[33;1m28\033[0m: sellaccs247.txt")
+    print("\033[33;1m29\033[0m: 24_5_mln_emaile_i_passy.txt")
     
     choice = input("\n\033[33;1mEnter your choice: \033[0m")
     
