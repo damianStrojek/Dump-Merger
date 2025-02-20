@@ -40,7 +40,7 @@ Batch one:
 Batch two:
 - **BitcoinTalk-org.txt** - Data breach of BitcoinTalk.org dated 2013-2016 [https://cointelegraph.com/news/bitcointalkorg-database-with-500k-accounts-is-being-sold-on-the-dark-web]
 - **vbuser_forumplay.txt** - Dump of usernames, IPs, emails, tokens, and secrets from Forum Play [https://breachforums.st/]
-- **kssipgovpl.txt** - Leak of usernames, IPs, emails, passwords, and secrets from kksip.gov.pl [https://gdpr.pl/wyciek-danych-z-krajowej-szkoly-sadownictwa-i-prokuratury]
+- **kssipgovpl.txt** - Leak of usernames, IPs, emails, passwords, and secrets from kksip.gov.pl dated April 2020 [https://gdpr.pl/wyciek-danych-z-krajowej-szkoly-sadownictwa-i-prokuratury]
 - **morele-users.txt** - Data breach of morele.net dated November 2018 [https://www.rp.pl/dane-osobowe/art38225061-morele-nie-zaplaci-gigantycznej-kary-za-wyciek-danych-nsa-obciazyl-uodo]
 - **DB_Noclegi.txt** - Data breach of Noclegi.pl database [https://breachforums.st/]
 - **sellaccs247.txt** - Data breach containing names, emails, and passwords [https://breachforums.st/]
