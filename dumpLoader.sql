@@ -185,6 +185,14 @@ ENCLOSED BY '"'           -- Values enclosed in double quotes
 LINES TERMINATED BY '\n'  -- Line separator (use '\r\n' for Windows-style line endings)
 IGNORE 1 ROWS;           -- Skip the header row
 
+LOAD DATA INFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\24_5_mln_emaile_i_passy.csv'
+INTO TABLE merge
+FIELDS TERMINATED BY ','  -- Field separator (comma for CSV)
+ENCLOSED BY '"'           -- Values enclosed in double quotes
+LINES TERMINATED BY '\n'  -- Line separator (use '\r\n' for Windows-style line endings)
+IGNORE 1 ROWS;           -- Skip the header row
+
+
 LOAD DATA INFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\CANVA_FULL_CLEANED-1.csv'
 INTO TABLE merge
 FIELDS TERMINATED BY ','  -- Field separator (comma for CSV)
