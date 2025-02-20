@@ -1,3 +1,6 @@
-# Dump files
+# Source dump files
 dumps/*
 !dumps/README.md
+
+# Created CSVs
+*.csv
